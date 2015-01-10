@@ -353,7 +353,7 @@ class XmlDumper implements DumperInterface
 
         $platform = $column->getPlatform();
         if ($platform && !$column->isDefaultSqlType($platform)) {
-            $columnNode->setAttribute('sqlType', $domain->getSqlType());
+            $columnNode->setAttribute('sqlType', utf8_encode($domain->getSqlType()));
         }
 
         if ($description = $column->getDescription()) {
@@ -375,7 +375,7 @@ class XmlDumper implements DumperInterface
         $defaultValue = $domain->getDefaultValue();
         if ($defaultValue) {
             $type = $defaultValue->isExpression() ? 'defaultExpr' : 'defaultValue';
-            $columnNode->setAttribute($type, $defaultValue->getValue());
+            $columnNode->setAttribute($type, utf8_encode($defaultValue->getValue()));
         }
 
         if ($column->isInheritance()) {
